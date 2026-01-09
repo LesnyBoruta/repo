@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+    <h1>Kontakt</h1>
+    <p>Masz pytanie, problem albo chcesz się po prostu odezwać? No to pisz.</p>
+</header>
+
+<main>
+    <section>
+        <h2>Dane kontaktowe</h2>
+        <ul>
+            <li><strong>Email:</strong> kontakt@twojadomena.pl</li>
+            <li><strong>Telefon:</strong> +48 123 456 789</li>
+            <li><strong>Adres:</strong> ul. Przykładowa 1, 00-000 Miasto</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Formularz kontaktowy</h2>
+        <form action="/wyslij" method="post">
+            <div>
+                <label for="name">Imię</label><br>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="message">Wiadomość</label><br>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <div>
+                <button type="submit">Wyślij</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Twoja Firma. Wszelkie prawa zastrzeżone.</p>
+</footer>
+
+</body>
+</html>
