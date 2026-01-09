@@ -4,52 +4,170 @@
     <meta charset="UTF-8">
     <title>Kontakt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header, footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        h1, h2 {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input.error,
+        textarea.error {
+            border-color: #cc0000;
+        }
+
+        .error-message {
+            color: #cc0000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        button {
+            background-color: #0077cc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+    </style>
 </head>
 <body>
 
 <header>
     <h1>Kontakt</h1>
-    <p>Masz pytanie, problem albo chcesz się po prostu odezwać? No to pisz.</p>
+    <p>Napisz coś sensownego, nie boli.</p>
 </header>
 
 <main>
     <section>
-        <h2>Dane kontaktowe</h2>
-        <ul>
-            <li><strong>Email:</strong> kontakt@twojadomena.pl</li>
-            <li><strong>Telefon:</strong> +48 123 456 789</li>
-            <li><strong>Adres:</strong> ul. Przykładowa 1, 00-000 Miasto</li>
-        </ul>
-    </section>
-
-    <section>
         <h2>Formularz kontaktowy</h2>
-        <form action="/wyslij" method="post">
+
+        <p class="error-message" id="formError"></p>
+
+        <form id="contactForm" action="/wyslij" method="post" novalidate>
             <div>
-                <label for="name">Płeć</label><br>
-                <input type="text" id="name" name="name" required>
+                <label for="name">Imię</label>
+                <input type="text" id="name" name="name">
             </div>
 
             <div>
-                <label for="email">Email</label><br>
-                <input type="email" id="email" name="email" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
             </div>
 
             <div>
-                <label for="message">Wiadomość</label><br>
-                <textarea id="message" name="message" rows="5" required></textarea>
+                <label for="message">Wiadomość</label>
+                <textarea id="message" name="message" rows="5"></textarea>
             </div>
 
-            <div>
-                <button type="submit">Wyślij</button>
-            </div>
+            <button type="submit">Wyślij</button>
         </form>
     </section>
 </main>
 
-<footer>
-    <p>&copy; 2026 Twoja Firma. Wszelkie prawa zastrzeżone.</p>
-</footer>
+<script>
+    const form = document.getElementById('contactForm');
+    const errorBox = document.getElementById('formError');
+
+    form.addEventListener('submit', function (e) {
+        let errors = [];
+
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        [name, email, message].forEach(field => field.classList.remove('error'));
+
+        if (name.value.trim().length < 2) {
+            errors.push('Podaj imię (minimum 2 znaki).');
+            name.classList.add('error');
+        }
+
+        if (!email.value.includes('@')) {
+            errors.push('Podaj poprawny adres email.');
+            email.classList.add('error');
+        }
+
+        if (message.value.trim().length < 10) {
+            errors.push('Wiadomość musi mieć co najmniej 10 znaków.');
+            message.classList.add('error');
+        }
+
+        if (errors.length > 0) {
+            e.preventDefault();
+            errorBox.innerHTML = errors.join('<br>');
+            errorBox.style.display = 'block';
+        } else {
+            errorBox.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 </html>
