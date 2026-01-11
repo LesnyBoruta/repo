@@ -70,10 +70,16 @@
             font-size: 14px;
         }
 
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #0077cc;
+        input.error,
+        textarea.error {
+            border-color: #cc0000;
+        }
+
+        .error-message {
+            color: #cc0000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
         }
 
         button {
@@ -89,10 +95,6 @@
         button:hover {
             background-color: #005fa3;
         }
-
-        footer p {
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -104,6 +106,7 @@
 
 <main>
     <section>
+<<<<<<< HEAD
         <h2>Dane kontaktowe</h2>
         <ul>
             <li><strong>Email:</strong> kontakt@twojadomena.pl</li>
@@ -113,6 +116,8 @@
     </section>
 
     <section>
+=======
+>>>>>>> 28bea257a338b4318c73d5679386b78feece0137
         <h2>Formularz kontaktowy</h2>
         <form action="/wyslij" method="post">
             <div>
@@ -120,14 +125,22 @@
                 <input type="text" id="name" name="name" required>
             </div>
 
+        <p class="error-message" id="formError"></p>
+
+        <form id="contactForm" action="/wyslij" method="post" novalidate>
+            <div>
+                <label for="name">Imię</label>
+                <input type="text" id="name" name="name">
+            </div>
+
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email">
             </div>
 
             <div>
                 <label for="message">Wiadomość</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
+                <textarea id="message" name="message" rows="5"></textarea>
             </div>
 
             <button type="submit">Wyślij</button>
@@ -135,11 +148,51 @@
     </section>
 </main>
 
+<<<<<<< HEAD
 <footer>
     <p>&copy; 2026 Twoja Firma</p>
     <p>Pozdrawiamy</p>
 
 </footer>
+=======
+<script>
+    const form = document.getElementById('contactForm');
+    const errorBox = document.getElementById('formError');
+
+    form.addEventListener('submit', function (e) {
+        let errors = [];
+
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        [name, email, message].forEach(field => field.classList.remove('error'));
+
+        if (name.value.trim().length < 2) {
+            errors.push('Podaj imię (minimum 2 znaki).');
+            name.classList.add('error');
+        }
+
+        if (!email.value.includes('@')) {
+            errors.push('Podaj poprawny adres email.');
+            email.classList.add('error');
+        }
+
+        if (message.value.trim().length < 10) {
+            errors.push('Wiadomość musi mieć co najmniej 10 znaków.');
+            message.classList.add('error');
+        }
+
+        if (errors.length > 0) {
+            e.preventDefault();
+            errorBox.innerHTML = errors.join('<br>');
+            errorBox.style.display = 'block';
+        } else {
+            errorBox.style.display = 'none';
+        }
+    });
+</script>
+>>>>>>> 28bea257a338b4318c73d5679386b78feece0137
 
 </body>
 </html>
